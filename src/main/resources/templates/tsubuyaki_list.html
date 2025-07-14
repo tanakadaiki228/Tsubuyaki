@@ -6,6 +6,13 @@
 </head>
 <body>
     <h1>みんなのつぶやき</h1>
+    <h2>検索する</h2>
+    <form th:action="@{/search}" method="get">
+        <label for="keyword">キーワード：</label>
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="検索キーワードを入力" />
+        <input type="submit" value="検索" />
+        <a th:href="@{/read}">全て表示</a>
+    </form>
     <ul>
         <li th:each="t: ${tsubuyakiList}">
             [[${t.comment}]] -- [[${t.name}]] on [[${t.createdAt}]]

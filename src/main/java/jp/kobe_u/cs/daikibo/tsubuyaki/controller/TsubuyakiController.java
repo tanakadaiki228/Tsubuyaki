@@ -1,3 +1,16 @@
+package jp.kobe_u.cs.daikibo.tsubuyaki.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import jp.kobe_u.cs.daikibo.tsubuyaki.entity.Tsubuyaki;
+import jp.kobe_u.cs.daikibo.tsubuyaki.service.TsubuyakiService;
+import java.util.List;
+
 @Controller
 public class TsubuyakiController {
     @Autowired
@@ -25,5 +38,14 @@ public class TsubuyakiController {
         //サービスに投稿処理を依頼
         ts.postTsubuyaki(t);
         return "redirect:/read"; //メイン画面に転送
+    }
+    //つぶやきを検索
+    @GetMapping("/search")
+    String searchTsubuyaki(@RequestParam("keyword") String keyword, Model model) {
+        List<Tsubuyaki> list = ts.searchTsubuyaki(keyword); //キーワードでつぶやきを検索
+        model.addAttribute("tsubuyakiList", list);   //モデル属性にリストをセット
+        model.addAttribute("tsubuyakiForm", new TsubuyakiForm());  //空フォームをセット
+        model.addAttribute("keyword", keyword);  //検索キーワードをセット
+        return "tsubuyaki_list"; //リスト画面を返す
     }
 }
