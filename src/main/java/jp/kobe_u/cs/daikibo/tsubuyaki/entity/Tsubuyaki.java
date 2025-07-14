@@ -1,3 +1,9 @@
+package jp.kobe_u.cs.daikibo.tsubuyaki.entity;
+
+import lombok.Data;
+import jakarta.persistence.*;
+import java.util.Date;
+
 @Data
 @Entity
 public class Tsubuyaki {
